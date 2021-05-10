@@ -1,7 +1,8 @@
 export default function IndexPage() {
   return (
-    <div>
-      <p>Hello!</p>
-    </div>
+    <>
+      <p>Hello I am the main page</p>
+      <code>console.log</code>
+    </>
   );
 }
