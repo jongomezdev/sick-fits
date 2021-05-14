@@ -1,6 +1,11 @@
+import { createAuth } from '@keystone-next/auth';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { User } from './schemas/User';
 import 'dotenv/config';
+import {
+  withItemData,
+  statelessSessions,
+} from '@keystone-next/keystone/session';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits';
@@ -10,25 +15,42 @@ const sessionConfig = {
   secret: process.env.COOKIE_SECRET,
 };
 
-export default config({
-  server: {
-    cors: {
-      origin: [process.env.FRONTEND_URL],
-      credentials: true,
-    },
+const { withAuth } = createAuth({
+  listKey: 'User',
+  identityField: 'email',
+  secretField: 'password',
+  initFirstItem: {
+    fields: ['name', 'email', 'password'],
+    // Add in initial roles
   },
-  db: {
-    adapter: 'mongoose',
-    url: databaseURL,
-    // TODO: Add data seeding here
-  },
-  lists: createSchema({
-    // Schema Items
-    User,
-  }),
-  ui: {
-    // TODO: change roles
-    isAccessAllowed: () => true,
-  },
-  // TODO: Add session values here
 });
+
+export default withAuth(
+  config({
+    server: {
+      cors: {
+        origin: [process.env.FRONTEND_URL],
+        credentials: true,
+      },
+    },
+    db: {
+      adapter: 'mongoose',
+      url: databaseURL,
+      // TODO: Add data seeding here
+    },
+    lists: createSchema({
+      // Schema Items
+      User,
+    }),
+    ui: {
+      // Show UI only for users who pass this test
+      isAccessAllowed: ({ session }) =>
+        // console.log(session);
+        !!session?.data,
+    },
+    // TODO: Add session values here
+    session: withItemData(statelessSessions(sessionConfig), {
+      User: 'id name email',
+    }),
+  })
+);
