@@ -54,7 +54,7 @@ export default withAuth(
     },
     // TODO: Add session values here
     session: withItemData(statelessSessions(sessionConfig), {
-      User: 'id name email',
+      User: 'id',
     }),
   })
 );
