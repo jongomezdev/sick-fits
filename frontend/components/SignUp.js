@@ -25,29 +25,31 @@ export default function SignUp() {
     name: '',
     password: '',
   });
-  const [signup, { data, loading }] = useMutation(SIGNUP_MUTATION, {
+  const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION, {
     variables: inputs,
     // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(inputs);
-    const res = await signup();
+    const res = await signup().catch(console.error);
     console.log(res);
+    console.log({ data, loading, error });
     resetForm();
   }
-  // const error =
-  //   data?.authenticateUserWithPassword.__typename ===
-  //   'UserAuthenticationWithPasswordFailure'
-  //     ? data?.authenticateUserWithPassword
-  //     : undefined;
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign Up For an Account</h2>
-      {/* <Error error={error} /> */}
+      <Error error={error} />
 
       <fieldset>
+        {data?.createUser && (
+          <p>
+            Signed up with {data.createUser.email} - Please Go Ahead and Sign
+            in!
+          </p>
+        )}
         <label htmlFor="email">
           Your Name
           <input
