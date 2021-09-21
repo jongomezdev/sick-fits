@@ -31,7 +31,6 @@ export default function SignUp() {
   });
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(inputs);
     const res = await signup().catch(console.error);
     console.log(res);
     console.log({ data, loading, error });
@@ -42,11 +41,10 @@ export default function SignUp() {
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign Up For an Account</h2>
       <Error error={error} />
-
       <fieldset>
         {data?.createUser && (
           <p>
-            Signed up with {data.createUser.email} - Please Go Ahead and Sign
+            Signed up with {data.createUser.email} - Please go ahead and sign
             in!
           </p>
         )}
