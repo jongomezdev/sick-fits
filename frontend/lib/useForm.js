@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+// Set a default parameter
 export default function useForm(initial = {}) {
   // create a state object for our fields
   const [inputs, setInputs] = useState(initial);
