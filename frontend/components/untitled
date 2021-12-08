@@ -1,0 +1,16 @@
+// frontend
+{
+  __typename: 'User',
+  id: '609f17fda40d2045a8be71bd',
+  email: 'jongomezdev@gmail.com',
+  name: 'Jon Gomez'
+}
+
+
+
+// backend
+{
+  itemId: '609f17fda40d2045a8be71bd',
+  identity: 'jongomezdev@gmail.com',
+  token: 'K0rhz1E1jKeCimOoSW3W'
+}

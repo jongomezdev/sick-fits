@@ -39,32 +39,32 @@ export default function SignUp() {
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign Up For an Account</h2>
+      <h2>sign up for an account</h2>
       <Error error={error} />
       <fieldset>
         {data?.createUser && (
           <p>
-            Signed up with {data.createUser.email} - Please go ahead and sign
+            signed up with {data.createUser.email} - please go ahead and sign
             in!
           </p>
         )}
         <label htmlFor="email">
-          Your Name
+          your name
           <input
             type="text"
             name="name"
-            placeholder="Your Name"
+            placeholder="your name"
             autoComplete="name"
             value={inputs.name}
             onChange={handleChange}
           />
         </label>
         <label htmlFor="email">
-          Email
+          email
           <input
             type="email"
             name="email"
-            placeholder="Your Email Address"
+            placeholder="your email address"
             autoComplete="email"
             value={inputs.email}
             onChange={handleChange}
@@ -75,13 +75,13 @@ export default function SignUp() {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="password"
             autoComplete="password"
             value={inputs.password}
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Sign Up!</button>
+        <button type="submit">sign up!</button>
       </fieldset>
     </Form>
   );

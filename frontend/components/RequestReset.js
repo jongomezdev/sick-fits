@@ -35,26 +35,26 @@ export default function RequestReset() {
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Request a password reset</h2>
+      <h2>request a password reset</h2>
       <Error error={error} />
       <fieldset>
         {data?.sendUserPasswordResetLink === null && (
-          <p>Success! Check your email for a link</p>
+          <p>success! check your email for a link</p>
         )}
 
         <label htmlFor="email">
-          Email
+          email
           <input
             type="email"
             name="email"
-            placeholder="Your Email Address"
+            placeholder="your email address"
             autoComplete="email"
             value={inputs.email}
             onChange={handleChange}
           />
         </label>
 
-        <button type="submit">Request reset</button>
+        <button type="submit">request reset</button>
       </fieldset>
     </Form>
   );

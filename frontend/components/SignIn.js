@@ -43,16 +43,16 @@ export default function SignIn() {
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign Into Your Account</h2>
+      <h2>sign into your account</h2>
       <Error error={error} />
 
       <fieldset>
         <label htmlFor="email">
-          Email
+          email
           <input
             type="email"
             name="email"
-            placeholder="Your Email Address"
+            placeholder="your email address"
             autoComplete="email"
             value={inputs.email}
             onChange={handleChange}
@@ -63,13 +63,13 @@ export default function SignIn() {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="password"
             autoComplete="password"
             value={inputs.password}
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Sign In!</button>
+        <button type="submit">sign in!</button>
       </fieldset>
     </Form>
   );
