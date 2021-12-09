@@ -1,8 +1,7 @@
-import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import useForm from '../lib/useForm';
+import { useMutation } from '@apollo/client';
 import Form from './styles/Form';
-import { CURRENT_USER_QUERY } from './User';
+import useForm from '../lib/useForm';
 import Error from './ErrorMessage';
 
 const RESET_MUTATION = gql`
@@ -22,19 +21,23 @@ const RESET_MUTATION = gql`
   }
 `;
 
-export default function Reset() {
+export default function Reset({ token }) {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
     password: '',
-    token: '',
+    token,
   });
-  const [signup, { data, loading, error }] = useMutation(RESET_MUTATION, {
+  const [reset, { data, loading, error }] = useMutation(RESET_MUTATION, {
     variables: inputs,
-    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
+
+  const successfulError = data?.redeemUserPasswordResetToken?.code
+    ? data?.redeemUserPasswordResetToken
+    : undefined;
+
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await signup().catch(console.error);
+    const res = await reset().catch(console.error);
     console.log(res);
     console.log({ data, loading, error });
     resetForm();
@@ -43,10 +46,10 @@ export default function Reset() {
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>reset your password</h2>
-      <Error error={error} />
+      <Error error={error || successfulError} />
       <fieldset>
-        {data?.sendUserPasswordResetLink === null && (
-          <p>success! check your email for a link</p>
+        {data?.redeemUserPasswordResetToken === null && (
+          <p>success.. you can now sign in</p>
         )}
 
         <label htmlFor="email">
